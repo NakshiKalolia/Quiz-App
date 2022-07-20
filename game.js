@@ -1,5 +1,9 @@
 const question = document.getElementById("question");
 const choices = Array.from(document.getElementsByClassName("choice-text") );
+const questionCounterText = document.getElementById('questionCounter');
+const scoreText = document.getElementById('score');
+
+
 let currentQuestion = {};
 let acceptingAnswers = true;
 let score = 0;
@@ -8,7 +12,7 @@ let availableQuestions = [];
 
 let questions = [
     {
-        question: "Inside which HTML element do we put the Javascript??",
+        question: "Inside which HTML element do we put the Javascript?",
         choice1: "<script>",
         choice2: "<javascript>",
         choice3: "<js>",
@@ -16,7 +20,7 @@ let questions = [
         answer: 1
     },
     {
-        question: "Which is the capital of India",
+        question: "Which is the capital of India?",
         choice1: "Delhi",
         choice2: "Haryana",
         choice3: "Mumbai",
@@ -24,7 +28,7 @@ let questions = [
         answer: 1
     },
     {
-        question: "Which is the national animal of India??",
+        question: "Which is the national animal of India?",
         choice1: "Tiger",
         choice2: "Lion",
         choice3: "Peacock",
@@ -34,7 +38,6 @@ let questions = [
 ]
 
 // CONSTANTS
-
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 3;
 
@@ -51,6 +54,7 @@ getNewQuestion = () => {
         return window.location.assign("/end.html");
     }
     questionCounter++;
+    questionCounterText.innerText = '${questionCounter}/${MAX_QUESTIONS}' ;
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
     question.innerText = currentQuestion.question;
@@ -77,6 +81,7 @@ choices.forEach( choice => {
         console.log(classToApply);
 
         selectedChoice.parentElement.classList.add(classToApply);
+
         setTimeout( () => {
             selectedChoice.parentElement.classList.remove(classToApply);
             getNewQuestion();
